@@ -5,9 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Page</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: black; /* Placeholder for your galaxy-themed background */
+            color: white; /* Text color */
+            text-align: center;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .developer-text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #ff69b4; /* Pink color */
+            font-size: 18px;
+        }
+        /* Orb styles for animation */
+        .orbs {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none; /* Allow clicks to pass through orbs */
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 0, 255, 0.5); /* Neon color */
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        /* Define different orbs */
+        .orb:nth-child(1) { width: 40px; height: 40px; top: 20%; left: 30%; }
+        .orb:nth-child(2) { width: 60px; height: 60px; top: 60%; left: 50%; }
+        .orb:nth-child(3) { width: 30px; height: 30px; top: 10%; left: 80%; }
+        .orb:nth-child(4) { width: 50px; height: 50px; top: 70%; left: 20%; }
+        .orb:nth-child(5) { width: 70px; height: 70px; top: 40%; left: 60%; }
+
+        /* Music control styles */
+        .music-controls {
+            margin-top: 30px; /* Space between the download button and music controls */
+            display: flex;
+            align-items: center; /* Center align vertically */
+            justify-content: center; /* Center align horizontally */
+        }
+        .volume-slider {
+            margin-left: 10px; /* Space between the icon and slider */
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <audio id="background-music" autoplay loop>
+    <audio id="background-music" loop>
         <source src="assets/music/evil.wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
@@ -18,6 +73,12 @@
         <a href="assets/downloads/test.zip" download>
             <button>Download</button>
         </a>
+        <div class="music-controls">
+            <button onclick="document.getElementById('background-music').play()">
+                🎵 Play Music
+            </button>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="1" title="Volume Control">
+        </div>
     </div>
     <div class="orbs">
         <div class="orb"></div>
@@ -27,5 +88,20 @@
         <div class="orb"></div>
     </div>
     <div class="developer-text">Developed by chiping</div> <!-- Added developer text -->
+
+    <script>
+        // Set volume based on the slider value
+        const volumeSlider = document.getElementById('volume-slider');
+        const music = document.getElementById('background-music');
+        
+        volumeSlider.addEventListener('input', function() {
+            music.volume = this.value; // Update the audio volume
+        });
+        
+        // Optional: Play the music when the user interacts with the page
+        document.addEventListener('click', function() {
+            music.play();
+        });
+    </script>
 </body>
 </html>
